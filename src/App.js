@@ -1,26 +1,48 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// import axios from axios
+// export function getMovies(){
+//   return async function(dispatch){
+//       //api call to the server 
+//       const response = await axios.get('https://github.com/facebook/react/network/members')
+//       console.log("action" , response)
+//       return dispatch({
+//           type : 'GET_MOVIES',
+//           payload : response.data.results
+//       })
+//   }
+// } 
+import React, { Component } from 'react';
+import axios from 'axios'
+class ShoppingList extends React.Component {
+  componentDidMount() {
+    async function makeGetRequest() {
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+      let res = await axios.get('https://api.github.com/repos/octocat/hello-world/teams');
+    document.write(res)
+      let data = res.data;
+      console.log(data);
+    }
+    
+    makeGetRequest();
+  
+  }
+  
+
+  render() {
+   
+
+    // const response =  axios.get('https://api.themoviedb.org/3/movie/popular?api_key=b01beee0a54ec1668f8ead66dcbdcf08')
+    //    document.write("action" , response)
+    return (
+      <div className="shopping-list">
+        <h1>Shopping List for {this.props.name}</h1>
+        <ul>
+          <li>Instagram</li>
+          <li>WhatsApp</li>
+          <li>Oculus</li>
+        </ul>
+      </div>
+    );
+  }
 }
 
-export default App;
+export default ShoppingList;
