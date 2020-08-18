@@ -1,0 +1,11 @@
+.MuiSnackbarContent-root{
+    background-color: green !important;
+    height: 60px;
+    font-size: 1.5rem !important;
+}
+
+.MuiButton-textSizeLarge{
+    font-size: 1.2rem !important;
+    border: 2px solid black !important;
+    border-radius: 25px !important;
+}

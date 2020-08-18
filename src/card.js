@@ -8,7 +8,6 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
-
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -18,7 +17,7 @@ export default function ImgMediaCard(props) {
   const classes = useStyles();
   return (
   
-    <Card className={classes.root}>
+    <Card className={classes.root} >
       <CardActionArea>
         <CardMedia
           component="img"
@@ -28,20 +27,20 @@ export default function ImgMediaCard(props) {
           title="Contemplative Reptile"
         />
       
-        <CardContent>
+        <CardContent >
           <Typography gutterBottom variant="h5" component="h2">
             {props.data.owner.login}
           </Typography>
+         
           <Typography variant="body2" color="textSecondary" component="p">
           {props.data.description}
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary" onClick={()=>props.follow(props.data.owner.login)}>
+      <CardActions style={{justifyContent: 'center'}}>
+        <Button  size="large" color="primary" onClick={()=>props.follow(props.data.owner.login)}>
           Follow
         </Button>
-       
       </CardActions>
     </Card>
   );

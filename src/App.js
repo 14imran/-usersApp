@@ -9,6 +9,9 @@ import Typography from '@material-ui/core/Typography';
 import Pagination from '@material-ui/lab/Pagination';
 import axios from 'axios'
 import ButtonAppBar from './navbar'
+import Snackbar from '@material-ui/core/Snackbar';
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -38,9 +41,9 @@ const useStyles = makeStyles((theme) => ({
 
 
 const gh = new GitHub({
-  username: '14imran',
-  password: 'Aa49fa43',
-  token: '20c8825b5a81a9dc16a897474a40ace9455962fe'
+  username: 'enter your username',
+  password: 'enter your password',
+  token: 'enter your token'
 });
 
 const repoData = gh.getRepo('facebook/react')
@@ -50,9 +53,23 @@ const repoData = gh.getRepo('facebook/react')
  function App() {
   const classes = useStyles();
   const [loading ,setLoading] = useState(true)
-  const [reposData, setReposData] = useState(null);
+  const [reposData, setReposData] = useState([]);
    const [page, setPage] = React.useState(1);
+  const [followState, setFollowState] = useState(false)
+  const [state, setState] = React.useState({
+    open: false,
+    vertical: 'top',
+    horizontal: 'right',
+  });
+  const { vertical, horizontal, open } = state;
 
+  // const handleClick = (newState) => () => {
+  //   setState({ open: true, ...newState });
+  // };
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
   const handleChange = (event, value) => {
     setPage(value)
     setLoading(true)
@@ -61,6 +78,7 @@ const repoData = gh.getRepo('facebook/react')
     axios.get(`${gh.__apiBase}/repos/facebook/react/forks?page=${value}&per_page=30`)
     .then((res)=> {
       setReposData(res.data)
+     
       setLoading(false)
     })
     .catch((err)=> console.log(err))
@@ -82,15 +100,19 @@ const repoData = gh.getRepo('facebook/react')
 
 
   function follow(owner){
+    setFollowState(false)
     const follower = gh.getUser(owner)
     follower.follow(owner)
-    .then(()=> console.log("done"))
+    .then(()=>  {
+      setFollowState(true)
+      setState({ open: true , vertical: 'top',horizontal: 'right' })
+    }
+      )
     .catch((err)=> console.log(err))
   };
 
 
  
-
 
 
 
@@ -114,11 +136,11 @@ const repoData = gh.getRepo('facebook/react')
  
           {reposData.map((data)=>{
           return(
-            <Grid  item >
+            <Grid  item key={data.id} >
             
                 
 
-  <ImgMediaCard data={data} key={data.id} follow={follow}/>
+  <ImgMediaCard data={data}  follow={follow}/>
 
             </Grid>
        
@@ -128,7 +150,7 @@ const repoData = gh.getRepo('facebook/react')
 
 <div className={classes.rootPage}>
       
-      <Pagination count={10} page={page}  onChange={handleChange} />
+      <Pagination size="large" count={10} page={page}  onChange={handleChange} />
 
     </div> 
 </Grid>
@@ -137,6 +159,18 @@ const repoData = gh.getRepo('facebook/react')
            
 
       </div>
+      {followState && 
+      <>
+       <Snackbar
+        anchorOrigin={{ vertical, horizontal }}
+        open={open}
+        onClose={handleClose}
+        message="You have Successfully Followed"
+        key={vertical + horizontal}
+        autoHideDuration={1500}
+        
+      />
+      </>}
 
       </div>
       
