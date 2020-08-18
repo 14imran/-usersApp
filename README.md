@@ -1,4 +1,8 @@
 # PROJECT Github Demo App
+## Description
+This project has all of the users presented in a card layout who have forked react repository available on github (https://github.com/facebook/react/).
+You can directly click on follow button to follow the users.
+
 
 ## Requirements
 [Node](http://nodejs.org/) is really easy to install & now include [NPM](https://npmjs.org/).
@@ -53,6 +57,7 @@ Also, be sure to have `git` available in your PATH, `npm` might need it.
     $ npm run build
     
 ### NOTE all of the dependencies are available in package.json file. 
+
     
 
 
