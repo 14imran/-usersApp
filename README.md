@@ -52,5 +52,7 @@ Also, be sure to have `git` available in your PATH, `npm` might need it.
 
     $ npm run build
     
+### NOTE all of the dependencies are available in package.json file. 
+    
 
 
